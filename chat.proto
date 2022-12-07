@@ -4,17 +4,15 @@ service Chatting {
   rpc ConnectServer(ConnectServerReqeust) returns (ConnectServerResponse);
   rpc ListenChat(ListenRequest) returns (stream ChatResponse);
   rpc SendChat(ChatRequest) returns (Empty);
-  rpc GetUserList(UserListQueryRequest) returns (UserListQueryResponse);
-  rpc GetAllChats(ListenRequest) returns (GetAllChatsResponse);
 }
 
 message Empty {}
 
 message ListenRequest {
   //  string room_name = 1;
-  reserved 1;
+  //  UserInfo sender = 3;
+  reserved 1, 3;
   UserInfo me = 2;
-  UserInfo sender = 3;
 }
 
 message ConnectServerReqeust {
@@ -29,18 +27,9 @@ message ConnectServerResponse {
   }
 }
 
-message UserListQueryRequest {
-  optional string specific_user_name = 1;
-}
-
-message UserListQueryResponse {
-  bool success = 1;
-  repeated UserInfo users = 2;
-  optional string error_message = 3;
-}
-
 message UserInfo {
   string user_name = 1;
+  optional string random_color = 3;
   //  string uid = 2;
   reserved 2;
 }
@@ -49,20 +38,12 @@ message ChatRequest {
   UserInfo sender = 1;
   oneof msg_or_file {
     string message = 2;
-    File file = 6;
+    //    File file = 6;
   }
   //  google.protobuf.Timestamp timestamp = 3;
   //  string room_name = 4;
-  reserved 3, 4;
-  UserInfo target = 5;
-}
-
-message File {
-  bytes content = 1;
-  string extension = 2;
-  string file_name = 3;
-  //  uint64 file_size = 4;
-  reserved 4;
+  reserved 3, 4, 5, 6;
+  //  UserInfo target = 5;
 }
 
 message ChatResponse {
@@ -71,8 +52,4 @@ message ChatResponse {
     ChatRequest chat_req = 2;
     string error_message = 3; // Check file(6)'s size is not over 2^32.
   }
-}
-
-message GetAllChatsResponse {
-  repeated ChatRequest chats = 1;
 }

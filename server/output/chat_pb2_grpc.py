@@ -29,16 +29,6 @@ class ChattingStub(object):
                 request_serializer=chat__pb2.ChatRequest.SerializeToString,
                 response_deserializer=chat__pb2.Empty.FromString,
                 )
-        self.GetUserList = channel.unary_unary(
-                '/Chatting/GetUserList',
-                request_serializer=chat__pb2.UserListQueryRequest.SerializeToString,
-                response_deserializer=chat__pb2.UserListQueryResponse.FromString,
-                )
-        self.GetAllChats = channel.unary_unary(
-                '/Chatting/GetAllChats',
-                request_serializer=chat__pb2.ListenRequest.SerializeToString,
-                response_deserializer=chat__pb2.GetAllChatsResponse.FromString,
-                )
 
 
 class ChattingServicer(object):
@@ -62,18 +52,6 @@ class ChattingServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GetUserList(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def GetAllChats(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
 
 def add_ChattingServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -91,16 +69,6 @@ def add_ChattingServicer_to_server(servicer, server):
                     servicer.SendChat,
                     request_deserializer=chat__pb2.ChatRequest.FromString,
                     response_serializer=chat__pb2.Empty.SerializeToString,
-            ),
-            'GetUserList': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetUserList,
-                    request_deserializer=chat__pb2.UserListQueryRequest.FromString,
-                    response_serializer=chat__pb2.UserListQueryResponse.SerializeToString,
-            ),
-            'GetAllChats': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetAllChats,
-                    request_deserializer=chat__pb2.ListenRequest.FromString,
-                    response_serializer=chat__pb2.GetAllChatsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -160,39 +128,5 @@ class Chatting(object):
         return grpc.experimental.unary_unary(request, target, '/Chatting/SendChat',
             chat__pb2.ChatRequest.SerializeToString,
             chat__pb2.Empty.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def GetUserList(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/Chatting/GetUserList',
-            chat__pb2.UserListQueryRequest.SerializeToString,
-            chat__pb2.UserListQueryResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def GetAllChats(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/Chatting/GetAllChats',
-            chat__pb2.ListenRequest.SerializeToString,
-            chat__pb2.GetAllChatsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
