@@ -1,9 +1,9 @@
 import random
 from typing import AsyncGenerator
 
-from server.ChatManager import ChatManager
-from server.output import chat_pb2_grpc
-from server.output.chat_pb2 import ConnectServerReqeust, ConnectServerResponse, ChatRequest, Empty, ListenRequest, \
+from ChatManager import ChatManager
+from output import chat_pb2_grpc
+from output import ConnectServerReqeust, ConnectServerResponse, ChatRequest, Empty, ListenRequest, \
     ChatResponse, UserInfo
 
 

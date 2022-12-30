@@ -4,8 +4,9 @@ from concurrent.futures import ThreadPoolExecutor
 
 import grpc
 
-from server.output.chat_pb2_grpc import add_ChattingServicer_to_server
-from server.servicer import ChattingServicer
+from output.chat_pb2_grpc import add_ChattingServicer_to_server
+from ChatManager import ChatManager
+from servicer.ChattingServicer import ChattingServicer
 
 
 # os.environ.setdefault('GRPC_VERBOSITY', 'debug')
@@ -13,7 +14,7 @@ from server.servicer import ChattingServicer
 async def main():
     server = grpc.aio.server(ThreadPoolExecutor(max_workers=10))
     add_ChattingServicer_to_server(
-        ChattingServicer(), server
+        ChattingServicer(ChatManager()), server
     )
     port = 'localhost:5000'
     server.add_insecure_port(port)
