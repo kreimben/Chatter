@@ -3,8 +3,8 @@ from typing import AsyncGenerator
 
 from ChatManager import ChatManager
 from output import chat_pb2_grpc
-from output import ConnectServerReqeust, ConnectServerResponse, ChatRequest, Empty, ListenRequest, \
-    ChatResponse, UserInfo
+from output.chat_pb2 import ConnectServerReqeust, UserInfo, ConnectServerResponse, ListenRequest, ChatRequest, \
+    ChatResponse, Empty
 
 
 def get_random_color() -> str:
