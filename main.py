@@ -4,8 +4,8 @@ from concurrent.futures import ThreadPoolExecutor
 
 import grpc
 
-from output.chat_pb2_grpc import add_ChattingServicer_to_server
 from ChatManager import ChatManager
+from output.chat_pb2_grpc import add_ChattingServicer_to_server
 from servicer.ChattingServicer import ChattingServicer
 
 
